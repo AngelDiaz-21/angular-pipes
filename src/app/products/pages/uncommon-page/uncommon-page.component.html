@@ -1,0 +1,82 @@
+<p-panel [showHeader]="false" class="p-1">
+  <h1>Pipes no tan comunes</h1>
+  <p>
+    Pipes incluídos en Angular - Usualmente en el Common Module
+  </p>
+</p-panel>
+
+<div class="grid">
+  <div class="col-12 md:col-6">
+    <!-- Cuando se habla de i18n se refiere a un sistema de internacionalizacion, palabras que se acomdan a cierto tipo de texto  -->
+    <p-fieldset legend="i18nSelect Pipe" [toggleable]="true">
+      <p>
+        saludos {{ name }}, es un placer
+        <!-- Basado en el valor de gender mediante el pipe se podra seleccionar una opcion declarada en el map-->
+        <!-- Ademas, la opcion debe estar mapeada, ya que si no al querer usar el pipe este quedaria vacio -->
+        <!-- En este ejemplo, se tiene un buton que permite modificar las propiedades name y gender, asi que el pipe detecta estos cambios y como se tiene mapeado que cuando sea male cambia la palabra a "invitarlo" y cuando sea female cambie a "invitarla" -->
+        {{ gender | i18nSelect:invitationMap }}
+        a nuestro evento.
+      </p>
+      <p-button
+        (onClick)="changeClient()"
+        label="Cambiar persona"
+      >
+      </p-button>
+    </p-fieldset>
+  </div>
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="i18nPlural Pipe" [toggleable]="true">
+      <p>
+        Actualmente {{ clients.length | i18nPlural:clientsMap }}.
+      </p>
+      <p-button
+        (click)="deleteClient()"
+        label="Borrar cliente"
+      >
+      </p-button>
+    </p-fieldset>
+  </div>
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="Slice Pipe" [toggleable]="true">
+      <b>Original</b>
+      <p>{{ clients }}</p>
+
+      <!-- Funciona para strings y arreglos -->
+      <b>slice - 0:2(que muestre los primeros 2 elementos)</b>
+      <p>{{ clients | slice:0:2}}</p>
+      <b>slice - :1(que elimine el primer elemento)</b>
+      <p>{{ clients | slice:1}}</p>
+      <b>slice - :3:5(Se indica que muestre los elementos que estan en la pocision 3 a la 5, sin embargo, el elemento que esta en la posicion 5 no lo incluye)</b>
+      <p>{{ clients | slice:3:5}}</p>
+      <b>slice - :3:3(Se indica que tome la posicion 3 hasta la posicion 3, pero como no es incluyente a la ultima posicion que se indica no muestra nada. Si queremos que muestre el elemento de la posicion deberiamos de ponerlo asi: 3:4)</b>
+      <p>{{ clients | slice:3:3}}</p>
+      <b>slice - :0:-4(De esta forma se indica que tome el primer elemento, pero que elimine los 4 ultimos)</b>
+      <p>{{ clients | slice:0:-4}}</p>
+    </p-fieldset>
+  </div>
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="Json Pipe" [toggleable]="true">
+      <pre>{{ person | json}}</pre>
+    </p-fieldset>
+  </div>
+  <div class="col-12 md:col-6">
+    <p-fieldset legend="KeyValue Pipe" [toggleable]="true">
+      <ul>
+        <!-- Si se intenta iterar el objeto person nos daria un error, pero con el pipe keyvalue nos deja hacerlo, en pocas lo transforma en pares de valores -->
+        <li *ngFor="let item of person | keyvalue">
+          <!-- Y con la ayuda del pipe json lo podemos visualizar, ya que si no nos aparecia como un objeto. Ademas, se muestra en orden alfabetico, no como lo tenemos en el codigo -->
+          <!-- {{ item | json }} -->
+          <b>{{ item.key | titlecase }}:</b> {{ item.value }}
+        </li>
+      </ul>
+    </p-fieldset>
+  </div>
+  <div class="col-12 md:col-6">
+    <!-- Nos permite abrir, escuchar un observable o promesa, cuando ya no se utiliza,  cuando se va cambiar la pantalla o el componente se va a destruir hace la limpieza en automatico. Es como si se tuviera un subscribe de la supscription y un ngDestroy -->
+    <p-fieldset legend="Async Pipe" [toggleable]="true">
+      <!-- <pre *ngIf="!(myObservableTimer | async)">Resolviendo observable</pre>
+      <pre>{{ myObservableTimer | async }}</pre> -->
+      <pre>{{ promiseValue | async }}</pre>
+    </p-fieldset>
+  </div>
+</div>
