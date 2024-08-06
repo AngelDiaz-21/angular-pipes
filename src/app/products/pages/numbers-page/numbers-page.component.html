@@ -1,0 +1,34 @@
+<p-panel [showHeader]="false" class="p-1">
+  <h1>Pipes numéricos</h1>
+  <p>
+    Pipes incluídos en Angular - Usualmente en el Common Module
+  </p>
+</p-panel>
+
+<div class="grid">
+  <div class="col-12 md:col-4">
+    <p-card header="Ventas netas" subheader="del presente año">
+      <!-- number: '1.2-2' de esta forma muestra solo 2 decimales -->
+      {{ totalSells | number: '1.2-2' }} <br>
+      <!-- number: '1.6-6' de esta forma muestra 6 decimales, en caso de solo contar con 4, los otros restantes los llenaria con ceros -->
+      {{ totalSells | number: '1.2-2' }}
+      {{ convertNumber | number: '1.1' }}
+      {{ convertNumber }}
+    </p-card>
+  </div>
+  <div class="col-12 md:col-4">
+    <p-card header="Ventas netas" subheader="del presente año">
+      <!-- Con currency nos permite mostrar la moneda, por defecto esta con el signo de dolares  -->
+      {{ totalSells | currency }} <br>
+      <!-- Aunque tambien se puede cambiar el tipo de monedas y el segundo parametro nos permite agregar el signo de acuerdo a su tipo de moneda -->
+      {{ totalSells | currency:'MXN':'symbol-narrow':'1.4-4' }}
+    </p-card>
+  </div>
+  <div class="col-12 md:col-4">
+    <p-card header="Ganancia porcentual" subheader="del presente año">
+      <!-- Si no le pusieramos que mostrara decimales automaticamente redondea el porcentaje -->
+      {{ percent | percent: '1.2-2' }}
+      {{ percent | percent }}
+    </p-card>
+  </div>
+</div>
