@@ -7,7 +7,7 @@ import {PanelModule} from 'primeng/panel';
 import { ToolbarModule } from 'primeng/toolbar';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AvatarModule } from 'primeng/avatar';
-
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   exports: [
@@ -19,6 +19,7 @@ import { AvatarModule } from 'primeng/avatar';
     ToolbarModule,
     SplitButtonModule,
     AvatarModule,
+    TableModule,
   ]
 })
 export class PrimeNgModule { }
