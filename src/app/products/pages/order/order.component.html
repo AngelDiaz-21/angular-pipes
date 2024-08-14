@@ -1,5 +1,96 @@
 <p-panel header="Pipes personalizados" class="p-1">
   <p>
-    Pipes personalizados - creados por nosotros
+    <!-- Los argumentos son los que van despues del signo :, en este caso un argumento seria false -->
+    <!-- Y asi sucesivamente se pueden ir agregando mas argumentos  -->
+    Pipes personalizados - creados por {{ 'nosotros' | toggleCase: isUpperCase  }}
   </p>
 </p-panel>
+
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <p-button
+      label="ToogleCase"
+      icon="pi pi-search"
+      (click) = "toggleUpperCase()">
+    </p-button>
+  </div>
+
+  <div class="p-toolbar-group-end">
+    <p-button
+          (click)="changeOrder('name')"
+          class="mr-2"
+          label="Por nombre"
+          icon="pi pi-sort"
+          styleClass="p-button-success">
+    </p-button>
+    <p-button
+          (click)="changeOrder('canFly')"
+          class="mr-2"
+          label="Por volar"
+          icon="pi pi-sort"
+          styleClass="p-button-danger">
+    </p-button>
+    <p-button
+          (click)="changeOrder('color')"
+          class="mr-2"
+          label="Por color"
+          icon="pi pi-sort"
+          styleClass="p-button-help">
+    </p-button>
+  </div>
+</p-toolbar>
+
+<div class="grid">
+  <div class="col mt-2">
+    <p-panel header="Héroes">
+      <!-- Aquí no se utiliza un template string para el segundo argumento valueOrder del pipe, ya que angular ya espera una expresión de TypeScript. Cuando se utiliza `[]` para la vinculación de propiedades de Angular, ya estás dentro del contexto de evaluación de expresiones de Angular, por lo que no se necesita y no se puede usar los `{{  }}` de las interpolaciones de Angular. Simplemente se usa la variable directamente-->
+      <p-table [value]="heroes | sortBy: valueOrder" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Vuela</th>
+                <th>Color</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-super>
+            <tr>
+                <td>{{ super.name }}</td>
+                <td>{{ super.canFly | canFly | titlecase }}</td>
+                <td>{{ super.color | showColor }}</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+  </div>
+</div>
+
+<!-- <p-toolbar
+    styleClass="bg-gray-900 shadow-2"
+    [style]="{ 'border-radius': '3rem', 'background-image': 'linear-gradient(to right, var(--bluegray-500), var(--bluegray-800))' }">
+        <ng-template pTemplate="start">
+            <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" />
+        </ng-template>
+        <ng-template pTemplate="center">
+            <div class="flex flex-wrap align-items-center gap-3">
+                <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+                    <i class="pi pi-home text-2xl"></i>
+                </button>
+                <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+                    <i class="pi pi-user text-2xl"></i>
+                </button>
+                <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+                    <i class="pi pi-search text-2xl"></i>
+                </button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="end">
+            <div class="flex align-items-center gap-2">
+                <p-avatar
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                    shape="circle" />
+                <span class="font-bold text-bluegray-50">
+                    Amy Elsner
+                </span>
+            </div>
+        </ng-template>
+</p-toolbar> -->
